@@ -1,0 +1,502 @@
+Excellent. `IdentityHashMap` is one of the most interesting `Map` implementations because it behaves very differently from all the maps you've learned so far.
+
+The biggest interview question is:
+
+> **"HashMap uses `equals()`. IdentityHashMap uses `==`. Why?"**
+
+We'll keep the same pace as before.
+
+---
+
+# IdentityHashMap
+
+## Definition
+
+`IdentityHashMap` is a **hash table based implementation** of the `Map` interface that compares **keys using reference equality (`==`) instead of logical equality (`equals()`)**.
+
+This is the biggest difference between `HashMap` and `IdentityHashMap`.
+
+---
+
+# Hierarchy
+
+```text
+                  Map
+                   │
+             AbstractMap
+                   │
+          IdentityHashMap
+```
+
+---
+
+# Why was IdentityHashMap Introduced?
+
+Normally in a `HashMap`
+
+```java
+String s1 = new String("Java");
+String s2 = new String("Java");
+```
+
+Although
+
+```text
+s1 != s2
+```
+
+their contents are equal.
+
+```java
+s1.equals(s2)
+```
+
+returns
+
+```text
+true
+```
+
+Therefore
+
+```java
+HashMap<String,Integer> map = new HashMap<>();
+
+map.put(s1,1);
+map.put(s2,2);
+```
+
+Result
+
+```text
+{Java=2}
+```
+
+Only **one entry** exists because `HashMap` considers the keys equal.
+
+---
+
+Sometimes we want to distinguish objects by their **memory address (reference)** instead of their content.
+
+For example:
+
+```java
+Student s1 = new Student(101);
+Student s2 = new Student(101);
+```
+
+Even though both students contain the same data,
+
+they are **different objects**.
+
+In such cases Java provides
+
+```text
+IdentityHashMap
+```
+
+---
+
+# Internal Structure
+
+Internally it is based on a **hash table**, just like `HashMap`.
+
+However, there is one important difference.
+
+Instead of using
+
+```text
+hashCode()
+
++
+
+equals()
+```
+
+it uses
+
+```text
+System.identityHashCode()
+
++
+
+==
+```
+
+---
+
+# What is System.identityHashCode()?
+
+Normally
+
+```java
+obj.hashCode()
+```
+
+can be overridden.
+
+Example
+
+```java
+class Student{
+
+    @Override
+    public int hashCode(){
+
+        return 100;
+    }
+}
+```
+
+HashMap will use
+
+```text
+100
+```
+
+---
+
+IdentityHashMap ignores overridden `hashCode()`.
+
+Instead it uses
+
+```java
+System.identityHashCode(obj)
+```
+
+which is based on the **object's identity (reference)**.
+
+---
+
+# Internal Working
+
+Suppose
+
+```java
+IdentityHashMap<String,Integer> map =
+        new IdentityHashMap<>();
+```
+
+Create
+
+```java
+String s1 = new String("Java");
+
+String s2 = new String("Java");
+```
+
+Memory
+
+```text
+Heap
+
+s1 ─────► "Java"
+
+s2 ─────► "Java"
+```
+
+Different objects.
+
+Now
+
+```java
+map.put(s1,1);
+
+map.put(s2,2);
+```
+
+IdentityHashMap checks
+
+```text
+s1 == s2
+```
+
+Result
+
+```text
+false
+```
+
+Therefore
+
+both entries are stored.
+
+Result
+
+```text
+{Java=1, Java=2}
+```
+
+Even though the contents are the same.
+
+---
+
+# Internal Algorithm
+
+## put()
+
+```text
+Key
+
+↓
+
+System.identityHashCode()
+
+↓
+
+Bucket
+
+↓
+
+Compare using ==
+
+↓
+
+Same Reference ?
+
+      │
+ ┌────┴────┐
+ │         │
+Yes       No
+ │         │
+Update   New Entry
+```
+
+---
+
+## get()
+
+```text
+Key
+
+↓
+
+System.identityHashCode()
+
+↓
+
+Bucket
+
+↓
+
+Compare References (==)
+
+↓
+
+Return Value
+```
+
+---
+
+## remove()
+
+```text
+Key
+
+↓
+
+Find Same Reference
+
+↓
+
+Delete Entry
+```
+
+---
+
+# Time Complexity
+
+| Operation     | Complexity |
+| ------------- | ---------- |
+| put()         | O(1)       |
+| get()         | O(1)       |
+| remove()      | O(1)       |
+| containsKey() | O(1)       |
+
+Worst Case
+
+```text
+O(n)
+```
+
+---
+
+# Characteristics
+
+✔ Implements `Map`
+
+✔ Uses Hash Table
+
+✔ Uses **reference equality (`==`)**
+
+✔ Ignores `equals()`
+
+✔ Ignores overridden `hashCode()`
+
+✔ Uses `System.identityHashCode()`
+
+✔ Allows **one null key**
+
+✔ Allows **multiple null values**
+
+✔ Not synchronized
+
+✔ No insertion order
+
+---
+
+# Constructors
+
+### 1. Default Constructor
+
+```java
+IdentityHashMap<String,Integer> map =
+        new IdentityHashMap<>();
+```
+
+---
+
+### 2. Expected Maximum Size
+
+```java
+IdentityHashMap<String,Integer> map =
+        new IdentityHashMap<>(50);
+```
+
+This helps allocate enough internal space for approximately 50 mappings.
+
+---
+
+### 3. Copy Constructor
+
+```java
+Map<Integer,String> another = ...
+
+IdentityHashMap<Integer,String> map =
+        new IdentityHashMap<>(another);
+```
+
+---
+
+# Methods
+
+## Same as HashMap
+
+All commonly used methods are the same.
+
+```java
+put()
+
+get()
+
+remove()
+
+replace()
+
+putIfAbsent()
+
+containsKey()
+
+containsValue()
+
+size()
+
+clear()
+
+isEmpty()
+
+keySet()
+
+values()
+
+entrySet()
+
+forEach()
+
+getOrDefault()
+
+compute()
+
+merge()
+```
+
+There are **no additional public methods** unique to `IdentityHashMap`.
+
+The **difference lies in how keys are compared**, not in the API.
+
+---
+
+# HashMap vs IdentityHashMap
+
+| Feature              | HashMap            | IdentityHashMap             |
+| -------------------- | ------------------ | --------------------------- |
+| Key Comparison       | `equals()`         | `==`                        |
+| Hash Function        | `hashCode()`       | `System.identityHashCode()` |
+| Same Content Objects | Treated as one key | Treated as different keys   |
+| Allows Null Key      | ✔                  | ✔                           |
+| Allows Null Values   | ✔                  | ✔                           |
+| Thread Safe          | ❌                  | ❌                           |
+
+---
+
+# Advantages
+
+✔ Can distinguish objects with identical contents but different references.
+
+✔ Useful when object identity is more important than object state.
+
+✔ Fast lookups using reference equality.
+
+---
+
+# Disadvantages
+
+❌ Not suitable when logical equality is required.
+
+❌ Can surprise developers expecting `equals()` semantics.
+
+❌ Rarely needed in everyday business applications.
+
+---
+
+# Real-world Use Cases
+
+### 1. Object Graph Traversal
+
+```text
+Object Reference
+        │
+        ▼
+Visited?
+```
+
+Track objects by their identity, even if they have equal contents.
+
+---
+
+### 2. Serialization Frameworks
+
+Different object instances with the same values must still be treated as distinct objects.
+
+---
+
+### 3. Debugging / Profiling Tools
+
+Track the exact object instances created in memory.
+
+---
+
+### 4. JVM/Internal Framework Implementations
+
+Libraries that need to distinguish objects by **identity** rather than **logical equality**.
+
+--
+# Interview Points ⭐
+* `IdentityHashMap` implements the **Map** interface.
+* It uses a **hash table**, but **does not follow the general `Map` contract** regarding key equality.
+* Keys are compared using **`==`**, not `equals()`.
+* It uses **`System.identityHashCode()`** instead of an object's overridden `hashCode()`.
+* Two objects with identical data are treated as **different keys** unless they are the **same object reference**.
+* It allows **one `null` key** and **multiple `null` values**.
+* It has the **same API** as `HashMap`; the difference is entirely in the **comparison strategy**.
+* Typical use cases include object identity tracking, serialization frameworks, graph traversal, and JVM internals.

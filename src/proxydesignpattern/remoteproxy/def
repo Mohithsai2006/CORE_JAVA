@@ -1,0 +1,25 @@
+A Remote Proxy is a local object that represents an object located on another machine.
+ It implements the same interface as the real object, forwards method calls over the network, receives the response, and returns it to the client, hiding all networking details.
+
+Flow Summary
+Client
+   │
+   ▼
+Remote Proxy
+   │
+(Network Communication)
+   │
+   ▼
+Real Object (Remote Server)
+   │
+   ▼
+Process Request
+   │
+   ▼
+Response
+   │
+   ▼
+Remote Proxy
+   │
+   ▼
+Client

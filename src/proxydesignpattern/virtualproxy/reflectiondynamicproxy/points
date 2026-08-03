@@ -1,0 +1,22 @@
+Imagine the JVM secretly generates something like
+class StudentServiceProxy
+implements StudentService {
+    private InvocationHandler handler;
+    public void addStudent(){
+
+        handler.invoke(...);
+    }
+    public void deleteStudent(){
+
+        handler.invoke(...);
+    }
+    public void updateStudent(){
+        handler.invoke(...);
+    }
+}
+
+You never wrote this class.
+
+The JVM creates something equivalent in memory.
+
+That's why it is called a Dynamic Proxy.

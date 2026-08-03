@@ -1,0 +1,473 @@
+
+# Hashtable
+## Definition
+`Hashtable` is a **legacy**, **thread-safe**, hash table based implementation of the `Map` interface.
+It stores data as **Key-Value pairs**, just like `HashMap`, but **all public methods are synchronized**, making it safe for multiple threads.
+Unlike `HashMap`, `Hashtable` **does not allow null keys or null values**.
+---
+
+# Hierarchy
+
+```text
+                 Map
+                  │
+            Dictionary (Abstract Class)
+                  │
+              Hashtable
+```
+
+Unlike `HashMap`
+
+```text
+HashMap
+
+Map
+ │
+AbstractMap
+ │
+HashMap
+```
+
+`Hashtable` extends **Dictionary**, while `HashMap` extends **AbstractMap**.
+
+`Dictionary` is a legacy abstract class introduced before the Collections Framework (JDK 1.2).
+
+---
+
+# Why was Hashtable Introduced?
+
+Before Java Collections Framework,
+
+developers needed
+
+* Fast searching
+* Key-Value storage
+* Thread safety
+
+Java introduced
+
+```text
+Dictionary
+
+↓
+
+Hashtable
+```
+
+Later, Java introduced `HashMap`, which is faster but **not synchronized**.
+
+Today,
+
+```text
+Single Thread
+
+↓
+
+HashMap
+```
+
+```text
+Multi Thread
+
+↓
+
+ConcurrentHashMap (Recommended)
+```
+
+`Hashtable` is mostly maintained for **backward compatibility**.
+
+---
+
+# Internal Structure
+
+Internally,
+
+`Hashtable` is almost identical to `HashMap`.
+
+It uses
+
+* Hash Table (Bucket Array)
+* Nodes (Entries)
+* Hashing
+* Collision handling
+
+Difference
+
+```text
+HashMap
+
+↓
+
+Not synchronized
+```
+
+```text
+Hashtable
+
+↓
+
+Every public method is synchronized
+```
+
+---
+
+# Internal Working
+
+The working is the **same as HashMap**.
+
+Example
+
+```java
+table.put(101,"Java");
+```
+
+Steps
+
+```text
+Key
+
+↓
+
+hashCode()
+
+↓
+
+Bucket Index
+
+↓
+
+Store Entry
+```
+
+Searching
+
+```java
+table.get(101);
+```
+
+```text
+Key
+
+↓
+
+hashCode()
+
+↓
+
+Bucket
+
+↓
+
+Return Value
+```
+
+---
+
+# Internal Algorithm
+
+The algorithms for
+
+* `put()`
+* `get()`
+* `remove()`
+
+are **the same as `HashMap`**.
+
+The only additional step is
+
+```text
+Acquire Lock
+
+↓
+
+Execute Operation
+
+↓
+
+Release Lock
+```
+
+because every public method is synchronized.
+
+---
+
+# Time Complexity
+
+| Operation     | Complexity |
+| ------------- | ---------- |
+| put()         | O(1)       |
+| get()         | O(1)       |
+| remove()      | O(1)       |
+| containsKey() | O(1)       |
+
+Worst Case
+
+```text
+O(n)
+```
+
+---
+
+# Characteristics
+
+✔ Stores data as Key-Value pairs
+
+✔ Uses hashing
+
+✔ Keys are unique
+
+✔ Values can be duplicated
+
+✔ Thread-safe
+
+✔ Every public method is synchronized
+
+✔ No insertion order
+
+✔ No sorting
+
+❌ Does NOT allow null key
+
+❌ Does NOT allow null value
+
+✔ Legacy class
+
+---
+
+# Constructors
+
+### 1. Default Constructor
+
+```java
+Hashtable<Integer,String> table =
+        new Hashtable<>();
+```
+
+Default
+
+```text
+Capacity = 11
+
+Load Factor = 0.75
+```
+
+---
+
+### 2. Initial Capacity
+
+```java
+Hashtable<Integer,String> table =
+        new Hashtable<>(20);
+```
+
+---
+
+### 3. Capacity + Load Factor
+
+```java
+Hashtable<Integer,String> table =
+        new Hashtable<>(20,0.75f);
+```
+
+---
+
+### 4. Copy Constructor
+
+```java
+Hashtable<Integer,String> table =
+        new Hashtable<>(anotherMap);
+```
+
+---
+
+# Methods
+
+## Same as HashMap
+
+Almost all commonly used methods are exactly the same:
+
+```java
+put()
+
+get()
+
+remove()
+
+containsKey()
+
+containsValue()
+
+replace()
+
+putIfAbsent()
+
+getOrDefault()
+
+compute()
+
+merge()
+
+size()
+
+clear()
+
+isEmpty()
+
+keySet()
+
+values()
+
+entrySet()
+
+forEach()
+```
+
+If you know `HashMap`, you already know how to use `Hashtable`.
+
+---
+
+## Methods Different from HashMap (Legacy Methods)
+
+Since `Hashtable` is older than the Collections Framework, it still provides some legacy methods.
+
+### 1. `contains(Object value)`
+
+```java
+table.contains("Java");
+```
+
+Checks whether the specified **value** exists.
+
+Equivalent to
+
+```java
+containsValue()
+```
+
+This method is **legacy**. Prefer `containsValue()`.
+
+---
+
+### 2. `keys()`
+
+```java
+Enumeration<Integer> keys =
+        table.keys();
+```
+
+Returns all keys as an `Enumeration`.
+
+Equivalent modern alternative
+
+```java
+keySet().iterator();
+```
+
+---
+
+### 3. `elements()`
+
+```java
+Enumeration<String> values =
+        table.elements();
+```
+
+Returns all values as an `Enumeration`.
+
+Equivalent modern alternative
+
+```java
+values().iterator();
+```
+
+---
+
+### 4. `rehash()`
+
+```java
+protected void rehash()
+```
+
+* Increases the internal bucket capacity.
+* Invoked automatically when the load factor threshold is exceeded.
+* `protected`, so application code typically doesn't call it directly.
+
+---
+
+# Advantages
+
+✔ Thread-safe
+
+✔ Fast lookup
+
+✔ No duplicate keys
+
+✔ Good for legacy code
+
+---
+
+# Disadvantages
+
+❌ Slower than `HashMap` due to synchronization
+
+❌ No null key
+
+❌ No null values
+
+❌ Legacy class
+
+❌ `ConcurrentHashMap` is preferred for modern concurrent applications
+
+---
+
+# Real-world Use Cases
+
+### 1. Legacy Enterprise Applications
+
+```text
+Old Java Application
+
+↓
+
+Hashtable
+```
+
+---
+
+### 2. Backward Compatibility
+
+```text
+Old API
+
+↓
+
+Requires Hashtable
+```
+
+---
+
+### 3. Simple Thread-safe Key-Value Storage
+
+```text
+Multiple Threads
+
+↓
+
+Shared Hashtable
+```
+
+*(In new applications, `ConcurrentHashMap` is usually a better choice.)*
+
+---
+
+# Interview Points ⭐
+
+* `Hashtable` implements the **Map** interface and **extends `Dictionary`**.
+* It is a **legacy** collection introduced before the Java Collections Framework.
+* Uses **hashing** internally, just like `HashMap`.
+* **All public methods are synchronized**, making it thread-safe.
+* Does **not allow `null` keys or `null` values**.
+* Does **not maintain insertion order**.
+* The commonly used API (`put()`, `get()`, `remove()`, etc.) is essentially the **same as `HashMap`**.
+* Additional legacy methods include `keys()`, `elements()`, and `contains(Object value)`, which return or use `Enumeration`.
+* For modern multithreaded applications, **`ConcurrentHashMap` is generally preferred over `Hashtable`** because it provides better concurrency and performance.

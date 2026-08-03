@@ -1,0 +1,18 @@
+| Parent    | Child     | Allowed?                | Reason               |
+| --------- | --------- | ----------------------- | -------------------- |
+| public    | public    | ✅                       | Same visibility      |
+| public    | protected | ❌                       | Visibility reduced   |
+| public    | default   | ❌                       | Visibility reduced   |
+| public    | private   | ❌                       | Visibility reduced   |
+| protected | public    | ✅                       | Visibility increased |
+| protected | protected | ✅                       | Same                 |
+| protected | default   | ❌                       | Reduced              |
+| protected | private   | ❌                       | Reduced              |
+| default   | public    | ✅                       | Increased            |
+| default   | protected | ✅                       | Increased            |
+| default   | default   | ✅                       | Same                 |
+| default   | private   | ❌                       | Reduced              |
+| private   | public    | ❌ Override not possible |                      |
+| private   | protected | ❌                       |                      |
+| private   | default   | ❌                       |                      |
+| private   | private   | ❌                       |                      |

@@ -1,0 +1,115 @@
+Comparable in Java:
+
+Comparable is an interface in Java used to define the natural ordering of objects.
+
+Suppose you create a Student class. Java doesn't know whether students should be sorted by:
+
+id
+name
+marks
+age
+
+So, you tell Java the default sorting rule by implementing Comparable.
+
+Why Comparable?
+
+Primitive types already know how to compare.
+
+10 < 20
+'A' < 'B'
+
+But for objects,
+
+Student s1 = new Student(101, "Ram");
+Student s2 = new Student(102, "Shyam");
+
+Java doesn't know
+
+Is s1 > s2 ?
+Is s1 < s2 ?
+
+because Student is our own class.
+
+Comparable teaches Java how to compare two Student objects.
+
+Definition
+public interface Comparable<T>
+
+Method
+
+int compareTo(T obj);
+
+You must override
+
+compareTo()
+Syntax
+class Student implements Comparable<Student> {
+
+    @Override
+    public int compareTo(Student other) {
+        // comparison logic
+    }
+}
+Return Values
+
+Very important.
+
+compareTo() returns
+
+Negative  -> Current object is smaller
+
+Zero      -> Both are equal
+
+Positive  -> Current object is greater
+
+Example
+
+this.age = 20
+other.age = 25
+
+20 - 25 = -5
+
+Negative
+
+Current object comes first.
+
+Natural Ordering:
+
+Natural ordering means
+
+"The default order of objects."
+
+Examples
+
+String
+Natural Order
+------------
+Apple
+Ball
+Cat
+Dog
+
+(Integer)
+
+10
+20
+30
+
+(Character)
+
+A
+B
+C
+
+Date
+
+Earlier Date
+Later Date
+
+These classes already implement Comparable.
+
+That's why
+
+Collections.sort(list);
+
+works directly.

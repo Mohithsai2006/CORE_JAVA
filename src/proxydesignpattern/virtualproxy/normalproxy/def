@@ -1,0 +1,15 @@
+What is a Virtual Proxy?
+
+A Virtual Proxy delays the creation of an expensive object until it is actually needed (Lazy Initialization).
+
+Example:
+
+Loading a large image
+Connecting to a database
+Loading a PDF
+Creating a machine learning model
+
+Instead of creating the heavy object immediately, we create a lightweight proxy. When the client calls a method, the proxy checks if the real object exists:
+
+If No → create it.
+If Yes → reuse it.

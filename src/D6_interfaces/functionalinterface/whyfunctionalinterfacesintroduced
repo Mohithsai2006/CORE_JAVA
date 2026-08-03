@@ -1,0 +1,283 @@
+😄 Fair question.
+I think I jumped directly into **lambdas**, but you were asking **"Why did Java introduce Functional Interfaces?"** That's actually a design question, not a syntax question.
+Let me explain it the way I would in a classroom.
+---
+
+# Step 1: What problem did Java have?
+
+Before Java 8, Java was an **Object-Oriented Language**.
+
+Everything revolved around **objects**.
+
+Suppose you have a method:
+
+```java
+class Test {
+
+    static void execute(Greeting g) {
+        g.sayHello();
+    }
+}
+``
+Notice something.
+`execute()` is **not asking for data**.
+
+It is asking for **behavior**.
+
+It wants someone who knows **how to say hello**.
+
+So we pass an object.
+
+```java
+Greeting g
+```
+
+because in Java **behavior lives inside objects**.
+
+---
+
+# Step 2: How did we provide that behavior?
+
+We had to create a class.
+
+```java
+interface Greeting {
+    void sayHello();
+}
+
+class EnglishGreeting implements Greeting {
+
+    public void sayHello() {
+        System.out.println("Hello");
+    }
+}
+```
+
+Then
+
+```java
+Greeting g = new EnglishGreeting();
+
+Test.execute(g);
+```
+
+Question:
+
+Did we really need an entire class just to print one line?
+
+```
+Hello
+```
+
+Not really.
+
+That's unnecessary code.
+
+---
+
+# Step 3: Java's Observation
+
+Java designers noticed something.
+
+Most callback interfaces looked like this:
+
+```java
+interface Runnable{
+    void run();
+}
+```
+
+or
+
+```java
+interface Comparator{
+    int compare(T o1,T o2);
+}
+```
+
+or
+
+```java
+interface ActionListener{
+    void actionPerformed(...);
+}
+```
+
+Notice something common?
+
+Every one of them had **only one method**.
+
+So developers were writing
+
+```java
+class MyRunnable implements Runnable {
+
+    public void run() {
+        System.out.println("Running");
+    }
+}
+```
+
+just to implement **one method**.
+
+Java designers thought:
+
+> "Why force programmers to create a whole class when they only want to provide one method's implementation?"
+
+That was the real problem.
+
+---
+
+# Step 4: The Solution
+
+Instead of
+
+```java
+class MyRunnable implements Runnable {
+
+    public void run() {
+        System.out.println("Running");
+    }
+}
+```
+
+why not allow
+
+```java
+() -> System.out.println("Running");
+  ```
+
+Just write the method body.
+
+No class.
+
+No object creation code.
+
+No boilerplate.
+
+---
+
+# Step 5: But why Functional Interface?
+
+Now comes the important question.
+
+Suppose Java sees
+
+```java
+() -> System.out.println("Running");
+```
+
+How does Java know
+
+* Is this for `run()`?
+* Is this for `show()`?
+* Is this for `print()`?
+* What are the parameter types?
+* What is the return type?
+
+It doesn't know.
+
+The lambda alone is incomplete.
+
+It needs a **target**.
+
+That's where Functional Interfaces come in.
+
+Example
+
+```java
+Runnable r = () -> System.out.println("Running");
+```
+
+Compiler sees
+
+```
+Runnable
+
+↓
+
+run()
+
+↓
+
+No parameters
+
+↓
+
+void return type
+
+↓
+
+Lambda matches
+```
+
+Now everything is clear.
+
+---
+
+# Why exactly ONE abstract method?
+
+Suppose
+
+```java
+interface Demo {
+
+    void show();
+
+    void print();
+}
+```
+
+Now you write
+
+```java
+Demo d = () -> System.out.println("Hello");
+```
+
+Compiler asks
+
+```
+Which method are you implementing?
+
+show()
+
+or
+
+print() ?
+```
+
+It cannot decide.
+
+That's why Java requires **exactly one abstract method**.
+
+---
+
+# So, what was the actual need?
+
+The need was **not**:
+
+> "Let's create a new type of interface."
+
+The need was:
+
+> "We want to support lambda expressions, but lambdas need a single, unambiguous method signature to implement."
+
+A **Functional Interface** provides that signature.
+
+---
+
+## One-line summary
+
+Think of it like this:
+
+* **Interface** = contract
+* **Functional Interface** = contract with exactly one job
+* **Lambda** = the implementation of that one job
+
+Without a Functional Interface, a lambda has **no target** and the compiler doesn't know what method the lambda is supposed to implement.
+
+---
+
+### One question for you:
+
+Do you understand **why a lambda cannot implement an interface with two abstract methods**, or is that part still confusing?

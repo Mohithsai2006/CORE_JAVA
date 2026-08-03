@@ -1,0 +1,138 @@
+What is Comparator?
+
+Comparator is an interface used to define custom ordering of objects.
+
+Unlike Comparable,
+
+Comparable → Defines one default (natural) ordering
+Comparator → Defines multiple custom orderings
+
+It belongs to
+
+java.util.Comparator
+
+Method
+
+int compare(T o1, T o2);
+Why was Comparator introduced?
+
+Suppose we have
+
+class Student{
+
+    int id;
+    String name;
+    int marks;
+    int age;
+
+}
+
+Now think...
+
+How can students be sorted?
+
+By ID
+
+By Name
+
+By Marks
+
+By Age
+
+By Roll Number
+
+By Percentage
+
+There are many possibilities.
+
+Comparable allows only ONE natural ordering.
+
+What if tomorrow the client says
+
+"Earlier sort by ID.
+
+Now sort by Name.
+
+Next sort by Marks."
+
+Should we keep changing compareTo() every time?
+
+No.
+
+That's why Java introduced Comparator.
+
+Problem with Comparable
+
+Suppose
+
+class Student implements Comparable<Student>{
+
+    int id;
+    String name;
+    int marks;
+
+    @Override
+    public int compareTo(Student other){
+
+        return Integer.compare(this.id,other.id);
+
+    }
+}
+
+Now
+
+Collections.sort(list);
+
+Output
+
+101
+
+102
+
+103
+
+Tomorrow requirement changes.
+
+Sort by Name
+
+You modify
+
+compareTo()
+
+Again requirement changes.
+
+Sort by Marks
+
+Again modify compareTo().
+
+This is not a good design.
+
+One class should not be modified every time the sorting rule changes.
+
+Comparator solves this.
+
+Comparator Idea
+
+Instead of putting comparison logic inside Student, put it in separate classes.
+
+Example
+
+Student
+
+No sorting logic
+
+Create
+
+IdComparator
+
+NameComparator
+
+MarksComparator
+
+AgeComparator
+
+Each class knows only one sorting rule.
+
+Student class remains unchanged.
+
+This follows the Single Responsibility Principle (SRP).

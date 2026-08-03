@@ -1,0 +1,57 @@
+static in case of parallel threads
+//memory allocation using custom arrray like shapes
+//inheritence static inner class
+//for static class/methods/var why not abstract
+//abstract memory
+//interface memory
+//default method conflict interface memory
+//anonym obj memory
+//functional interface
+
+
+
+
+
+//deseialization what if fields are changed
+//immutable class why fields are private and why class is final
+//deep copy in getter methods and fields in real word what are the use for this
+
+
+
+//streams inheritence abstraction reflection should be covered
+//interface lo inheritence avvadu ani code with ref object normal class ki aithadi
+//springboot project structure and what is what / js  /react
+
+
+
+
+
+//what happens when .class. is doing
+//AOP
+//Java security springsecurity
+//static final methods generic(parameterized type and type) types in  reflection
+//annotation reflection
+//int.class , why .class for primitive
+//fail fast and fail safe
+
+
+//checked and unckecked exception why unexception are Runtime exception and checked are compile time exception
+//ans
+//supreesed exception
+//why
+
+
+
+
+
+
+
+
+
+//contexts
+//bid,name,date yyyy-mm-dd,author
+//status codes
+//stero tyoes
+//exception handling
+//price
+//custom exceptions and validation @valid

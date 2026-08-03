@@ -1,0 +1,19 @@
+                             java.util.concurrent
+                                        │
+ ┌──────────────────────────────────────┼──────────────────────────────────────┐
+ │                                      │                                      │
+ ▼                                      ▼                                      ▼
+Task Execution                    Synchronization                       Shared Data
+ │                                      │                                      │
+ ├── Executor                          ├── Lock                              ├── ConcurrentHashMap
+ ├── ExecutorService                   ├── ReentrantLock                     ├── ConcurrentLinkedQueue
+ ├── ThreadPoolExecutor                ├── ReadWriteLock                     ├── CopyOnWriteArrayList
+ ├── ScheduledExecutor                 ├── StampedLock                       ├── BlockingQueue
+ ├── ForkJoinPool                      ├── Semaphore                         ├── ConcurrentSkipListMap
+ └── CompletableFuture                 ├── CountDownLatch                    └── ConcurrentSkipListSet
+                                       ├── CyclicBarrier
+                                       ├── Phaser
+                                       ├── Exchanger
+                                       ├── AtomicInteger
+                                       ├── AtomicReference
+                                       └── AQS

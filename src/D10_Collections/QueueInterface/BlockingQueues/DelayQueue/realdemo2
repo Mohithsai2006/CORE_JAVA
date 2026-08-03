@@ -1,0 +1,19 @@
+We'll simulate an OTP Expiration System.
+
+Scenario
+
+Suppose a banking application generates OTPs.
+
+OTP	Valid For
+OTP-101	5 seconds
+OTP-102	10 seconds
+OTP-103	7 seconds
+
+The system should:
+
+Generate OTPs (Producer Threads)
+Store them inside DelayQueue
+Automatically remove (expire) them after their validity period
+Consumers should not continuously check (No Busy Waiting)
+
+This is exactly what DelayQueue is designed for.

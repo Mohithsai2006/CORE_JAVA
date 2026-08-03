@@ -1,0 +1,26 @@
+Definition
+
+Heap Pollution occurs when a variable of a parameterized (generic) type refers to an object that is actually of a different parameterized type.
+
+In simple words:
+
+The compiler thinks one type is stored in the heap, but the actual object is a different type.
+
+How Can This Happen?
+
+Normally Generics prevent this.
+
+list.add(100);
+
+Compiler immediately says
+
+Error
+
+So how does pollution happen?
+
+Through
+
+Raw Types
+Arrays + Generics
+Reflection
+Unsafe casts

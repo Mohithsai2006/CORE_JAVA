@@ -1,0 +1,17 @@
+A Stream pipeline does not execute immediately.
+
+names.stream()
+     .filter(...)
+     .map(...);
+
+Nothing happens yet.
+
+Execution starts only when a Terminal Operation is reached:
+
+forEach()
+collect()
+count()
+findFirst()
+reduce()
+
+This behavior is called Lazy Evaluation.

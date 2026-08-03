@@ -1,0 +1,550 @@
+Great. You've covered **95% of Generics**. The remaining 5% consists of **small but frequently asked interview points**. Here are the important ones with short justifications.
+
+---
+
+# 1. Can Constructors be Generic?
+
+✅ **Yes**, but only if the class itself is generic or non-generic. Constructors can also declare their own type parameter.
+
+```java
+class Demo<T>{
+
+    <E> Demo(E value){
+
+        System.out.println(value);
+
+    }
+}
+```
+
+### Why?
+
+A constructor can perform operations on different datatypes independent of the class's generic type.
+
+---
+
+# 2. Can Static Methods Use Class Type Parameter?
+
+❌ No
+
+```java
+class Demo<T>{
+
+    // Compile Error
+    static void show(T value){
+
+    }
+
+}
+```
+
+### Why?
+
+`T` belongs to the object (instance).
+
+Static members belong to the class.
+
+Static methods execute without creating an object, so `T` is unknown.
+
+---
+
+## Correct Way
+
+```java
+class Demo<T>{
+
+    static <E> void show(E value){
+
+        System.out.println(value);
+
+    }
+
+}
+```
+
+Here `E` belongs to the method, not the class.
+
+---
+
+# 3. Can Static Variables be Generic?
+
+❌ No
+
+```java
+class Demo<T>{
+
+    // Compile Error
+    static T value;
+
+}
+```
+
+### Why?
+
+One static variable is shared by all objects.
+
+But different objects may use different generic types.
+
+```java
+Demo<String>
+
+Demo<Integer>
+```
+
+Which datatype should the single static variable have?
+
+Impossible.
+
+---
+
+# 4. Can Generic Classes Extend Another Generic Class?
+
+✅ Yes
+
+```java
+class Parent<T>{
+
+}
+
+class Child<T> extends Parent<T>{
+
+}
+```
+
+---
+
+Or
+
+```java
+class Parent<T>{
+
+}
+
+class Child extends Parent<String>{
+
+}
+```
+
+Perfectly valid.
+
+---
+
+# 5. Can Generic Interfaces be Implemented?
+
+✅ Yes
+
+```java
+interface Printer<T>{
+
+}
+
+class MyPrinter implements Printer<String>{
+
+}
+```
+
+---
+
+# 6. Generic Class Can Have Multiple Type Parameters
+
+```java
+class Demo<T,E,K,V>{
+
+}
+```
+
+No restriction on the number.
+
+---
+
+# 7. Can We Use Primitive Types?
+
+❌ No
+
+```java
+List<int>
+```
+
+Compile Error
+
+### Why?
+
+Generics work only with objects.
+
+Use Wrapper Classes.
+
+```java
+List<Integer>
+
+List<Double>
+
+List<Character>
+```
+
+---
+
+# 8. Diamond Operator (`<>`)
+
+Before Java 7
+
+```java
+Box<String> box =
+new Box<String>();
+```
+
+After Java 7
+
+```java
+Box<String> box =
+new Box<>();
+```
+
+### Why?
+
+Compiler already knows the left side datatype.
+
+No need to repeat it.
+
+---
+
+# 9. Raw Type
+
+```java
+Box box = new Box();
+```
+
+Called
+
+```text
+Raw Type
+```
+
+### Why avoid it?
+
+Compiler loses Generic information.
+
+```java
+box.set("Java");
+
+box.set(100);
+```
+
+Both allowed.
+
+Warnings generated.
+
+---
+
+# 10. Generic Arrays
+
+❌ Illegal
+
+```java
+new T[10]
+```
+
+### Why?
+
+Arrays require runtime type information.
+
+Generics disappear after Type Erasure.
+
+---
+
+# 11. Generic Exceptions
+
+❌ Illegal
+
+```java
+class MyException<T> extends Exception{
+
+}
+```
+
+### Why?
+
+Exception handling happens at runtime.
+
+Generics don't exist at runtime.
+
+---
+
+# 12. Can We Catch Generic Exceptions?
+
+❌ No
+
+```java
+catch(T e)
+```
+
+Compile Error.
+
+---
+
+# 13. Generic Enums
+
+❌ Illegal
+
+```java
+enum Demo<T>{
+
+}
+```
+
+Enums cannot declare type parameters.
+
+---
+
+# 14. Generic Anonymous Class
+
+✅ Allowed
+
+```java
+Box<String> box =
+new Box<String>(){
+
+};
+```
+
+---
+
+# 15. Generic Lambda
+
+Lambdas cannot declare their own type parameters.
+
+❌
+
+```java
+<T> () -> {}
+```
+
+But lambdas can implement generic functional interfaces.
+
+```java
+Predicate<String> p =
+s -> s.isEmpty();
+```
+
+---
+
+# 16. Generic Records (Java 16+)
+
+✅ Allowed
+
+```java
+record Box<T>(T value){
+
+}
+```
+
+---
+
+# 17. instanceof with Parameterized Type
+
+❌ Illegal
+
+```java
+if(list instanceof List<String>)
+```
+
+Compile Error.
+
+### Why?
+
+After Type Erasure
+
+Only
+
+```text
+List
+```
+
+exists.
+
+Correct
+
+```java
+if(list instanceof List)
+```
+
+---
+
+# 18. Method Overloading with Generics
+
+Illegal
+
+```java
+void show(List<String> list){
+
+}
+
+void show(List<Integer> list){
+
+}
+```
+
+Compile Error
+
+### Why?
+
+After Type Erasure
+
+Both become
+
+```java
+show(List list)
+```
+
+Duplicate method.
+
+---
+
+# 19. Generic Methods Can Infer Type
+
+```java
+<T> void show(T value)
+```
+
+Call
+
+```java
+show("Java");
+```
+
+Compiler automatically infers
+
+```text
+T = String
+```
+
+No need
+
+```java
+<String>show("Java");
+```
+
+---
+
+# 20. Type Parameter Naming Convention
+
+Not mandatory.
+
+Convention only.
+
+| Name | Meaning     |
+| ---- | ----------- |
+| T    | Type        |
+| E    | Element     |
+| K    | Key         |
+| V    | Value       |
+| N    | Number      |
+| R    | Return Type |
+
+You can even write
+
+```java
+class Demo<Apple>{
+
+}
+```
+
+Works perfectly.
+
+---
+
+# 21. Generic Methods vs Generic Classes
+
+```java
+class Box<T>{
+
+}
+```
+
+Whole class uses `T`.
+
+---
+
+```java
+class Demo{
+
+    <T> void show(T value){
+
+    }
+
+}
+```
+
+Only the method is generic.
+
+---
+
+# 22. Why Java Uses Type Erasure?
+
+To maintain **backward compatibility**.
+
+Java 5 introduced Generics.
+
+Older `.class` files should continue to work without modifying the JVM.
+
+---
+
+# 23. Can We Instantiate a Type Parameter?
+
+❌
+
+```java
+new T()
+```
+
+### Why?
+
+Compiler doesn't know which constructor to call after Type Erasure.
+
+---
+
+# 24. Can We Access `T.class`?
+
+❌
+
+```java
+T.class
+```
+
+No runtime type exists.
+
+---
+
+# 25. Bounded Type Erasure
+
+```java
+<T extends Number>
+```
+
+After Type Erasure
+
+```java
+Number
+```
+
+Not
+
+```java
+Object
+```
+
+---
+
+# ⭐ Top 10 Interview Questions
+
+1. Why were Generics introduced?
+2. What is Type Erasure?
+3. Why `new T()` is not allowed?
+4. Why `new T[]` is not allowed?
+5. Difference between `extends` and `super`.
+6. Explain PECS.
+7. Why can't static members use class type parameter `T`?
+8. Why can't we use primitive types in Generics?
+9. What is a raw type?
+10. Why is `instanceof List<String>` illegal?
+
+If you're preparing for Java interviews, mastering these 25 points along with the programs you've already practiced will cover the vast majority of Generics questions asked in core Java interviews.

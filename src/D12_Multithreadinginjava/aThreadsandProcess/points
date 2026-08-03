@@ -1,0 +1,12 @@
+| Component              | Definition                                            | Private / Shared                          |
+| ---------------------- | ----------------------------------------------------- | ----------------------------------------- |
+| **PC Register**        | Stores address of next instruction to execute         | ✅ Private                                 |
+| **Java Stack**         | Stores method execution data                          | ✅ Private                                 |
+| **Stack Frame**        | One frame per method call                             | ✅ Private                                 |
+| **Local Variables**    | Variables declared inside methods                     | ✅ Private                                 |
+| **Operand Stack**      | Temporary stack used during bytecode execution        | ✅ Private                                 |
+| **Method Information** | Information about the currently executing method      | ✅ Private                                 |
+| **Return Address**     | Tells JVM where to continue after a method returns    | ✅ Private                                 |
+| **Thread State**       | Current lifecycle state (NEW, RUNNABLE, etc.)         | ✅ Private                                 |
+| **Thread Metadata**    | ID, name, priority, daemon flag, interrupted status   | ✅ Private                                 |
+| **Native OS Thread**   | Operating system thread that executes the Java thread | ✅ Private (one OS thread per Java thread) |

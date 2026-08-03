@@ -1,0 +1,2 @@
+anonymus class doesnt contain constructors because we can write class name in anonymus classes.
+also we can make any variable or method static because we dont know class name so we cant access those.

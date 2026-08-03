@@ -1,0 +1,113 @@
+
+IMPORTANT RULES
+Rule 1
+------
+A sealed class MUST specify
+which classes can inherit it.
+Example
+sealed class Shape
+permits Circle { }
+
+--------------------------------------
+
+Rule 2
+------
+
+Every permitted subclass MUST be
+
+✔ final
+
+OR
+
+✔ sealed
+
+OR
+
+✔ non-sealed
+
+Wrong
+
+class Circle extends Shape { }
+
+Compile Time Error
+
+--------------------------------------
+
+Rule 3
+------
+
+Every class in permits must directly
+extend the sealed class.
+
+Correct
+
+sealed class Shape
+permits Circle
+
+final class Circle extends Shape
+
+Wrong
+
+sealed class Shape
+permits Circle
+
+class Circle
+
+Compile Time Error
+
+--------------------------------------
+
+Rule 4
+------
+
+The permitted subclasses should be in
+the SAME MODULE.
+
+If you are not using modules
+(as in most beginner projects),
+they must be in the SAME PACKAGE.
+
+--------------------------------------
+
+Rule 5
+------
+
+Cannot extend a sealed class
+unless it is listed in permits.
+
+Example
+
+sealed class Shape
+permits Circle
+
+class Square extends Shape
+
+Compile Time Error
+
+--------------------------------------
+
+Rule 6
+------
+
+sealed class can have
+
+✔ Variables
+
+✔ Methods
+
+✔ Constructors
+
+✔ Static Members
+
+Exactly like a normal class.
+
+Only inheritance is restricted.
+--------------------------------------
+Rule 7
+------
+sealed can also be used with interfaces.
+Example
+sealed interface Vehicle
+permits Car, Bus {
+
+}

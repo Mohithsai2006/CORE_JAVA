@@ -1,0 +1,142 @@
+========================================
+📘 JAVA MULTITHREADING ROADMAP
+========================================
+
+1. Introduction
+   • Process
+   • Thread
+   • Process vs Thread
+   • Single Thread vs Multithreading
+   • Advantages & Disadvantages
+   • Real-world Examples
+
+2. Thread Creation
+   • Extending Thread
+   • Implementing Runnable
+   • Lambda Expression
+   • Callable vs Runnable
+   • Future
+
+3. Thread Class
+   • start()
+   • run()
+   • currentThread()
+   • getName()
+   • setName()
+   • getPriority()
+   • setPriority()
+   • isAlive()
+   • sleep()
+   • join()
+   • yield()
+   • interrupt()
+   • isInterrupted()
+   • interrupted()
+
+4. Thread Life Cycle
+   • NEW
+   • RUNNABLE
+   • BLOCKED
+   • WAITING
+   • TIMED_WAITING
+   • TERMINATED
+   • State Transitions
+
+5. Thread Scheduling
+   • CPU Scheduler
+   • Time Slicing
+   • Context Switching
+   • Thread Priorities
+   • Starvation
+   • Fairness
+
+6. Daemon Threads
+   • User Thread
+   • Daemon Thread
+   • JVM Exit Rules
+   • Garbage Collector Thread
+
+7. Synchronization Basics
+   • Race Condition
+   • Critical Section
+   • Mutual Exclusion
+
+8. synchronized Keyword
+   • Synchronized Method
+   • Synchronized Block
+   • Object Lock
+   • Class Lock
+
+9. Monitor (Intrinsic Lock)
+   • Monitor Object
+   • Entry Set
+   • Wait Set
+   • Lock Acquisition
+   • Lock Release
+
+10. Inter-thread Communication
+    • wait()
+    • notify()
+    • notifyAll()
+    • Producer-Consumer
+    • Spurious Wakeups
+
+11. Thread Problems
+    • Deadlock
+    • Livelock
+    • Starvation
+
+12. Thread Safety
+    • Mutable vs Immutable Objects
+    • Thread-safe Classes
+    • Thread Confinement
+
+13. volatile Keyword
+    • Visibility
+    • Ordering
+    • Memory Barrier
+    • When to Use
+    • When Not to Use
+
+14. ThreadLocal
+    • Per-thread Storage
+    • remove()
+    • Memory Leak
+
+15. Java Memory Model (JMM)
+    • Main Memory
+    • Working Memory
+    • Visibility
+    • Atomicity
+    • Ordering
+    • Happens-Before
+
+16. Happens-Before Rules
+    • Program Order Rule
+    • Monitor Lock Rule
+    • Volatile Rule
+    • Thread Start Rule
+    • Thread Join Rule
+    • Final Field Rule
+
+17. CPU & Thread Internals
+    • Program Counter
+    • Java Stack
+    • Native Stack
+    • Context Switching
+    • CPU Cache (L1/L2/L3)
+    • False Sharing (Introduction)
+
+18. Virtual Threads (Java 21+)
+    • Platform Threads
+    • Virtual Threads
+    • Carrier Threads
+    • Pinning
+    • When to Use
+
+19. Best Practices
+    • Avoid Shared Mutable State
+    • Prefer Immutability
+    • Handle Interruptions Correctly
+    • Avoid Busy Waiting
+    • Deprecated Thread APIs (stop(), suspend(), resume())

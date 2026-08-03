@@ -1,0 +1,16 @@
+What is a Protection Proxy?
+
+A Protection Proxy controls who is allowed to access the real object.
+
+Instead of giving the client direct access to the real object, the client first goes through the proxy.
+
+The proxy checks things like:
+
+Is the user logged in?
+Does the user have permission?
+Is the user an Admin?
+Does the user have a valid token?
+
+If yes → forward the request.
+
+If no → deny access.

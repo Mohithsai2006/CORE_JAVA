@@ -1,0 +1,187 @@
+This is the most important demo for LinkedTransferQueue.
+
+For SynchronousQueue, we built a CachedThreadPool-style dispatcher.
+
+For LinkedTransferQueue, we need something more powerful, because it supports both:
+
+✅ Queue storage (like LinkedBlockingQueue)
+✅ Direct handoff (like SynchronousQueue)
+
+So let's build a realistic system where both behaviors happen.
+
+Demo 2 – Food Delivery Dispatch System
+
+Imagine Swiggy/Zomato.
+
+There are:
+
+Restaurants (Producers)
+Restaurant-1
+
+Creates
+
+Order-101
+Order-102
+Order-103
+Restaurant-2
+
+Creates
+
+Order-201
+Order-202
+Order-203
+Delivery Partners (Consumers)
+Rider-1
+
+take()
+
+↓
+
+Deliver Order
+Rider-2
+
+take()
+
+↓
+
+Deliver Order
+Unlike SynchronousQueue
+
+Suppose no riders exist.
+
+Restaurant creates
+
+Order-101
+
+Can it be stored?
+
+YES
+
+Restaurant
+
+↓
+
+LinkedTransferQueue
+
+↓
+
+Order Stored
+
+Later
+
+Rider
+
+↓
+
+take()
+
+↓
+
+Receives Order
+But...
+
+Suppose Rider is already waiting.
+
+Rider
+
+↓
+
+take()
+
+↓
+
+WAITING
+
+Restaurant creates
+
+VIP Order
+
+Instead of storing,
+
+Restaurant uses
+
+transfer(vipOrder)
+
+Internally
+
+Restaurant
+
+↓
+
+transfer()
+
+↓
+
+Waiting Rider Found
+
+↓
+
+Direct Transfer
+
+↓
+
+Rider gets order immediately
+
+↓
+
+Restaurant continues
+
+Exactly like SynchronousQueue.
+
+So this demo shows BOTH modes
+Mode 1
+
+Queue Storage
+
+Restaurant
+
+↓
+
+offer(Order)
+
+↓
+
+Queue
+
+↓
+
+Rider
+
+↓
+
+take()
+Mode 2
+
+Direct Transfer
+
+Restaurant
+
+↓
+
+transfer(VIP Order)
+
+↓
+
+Waiting Rider
+
+↓
+
+Immediate Delivery
+Program Features
+
+The program demonstrates:
+
+Feature	Covered
+Multiple Producers	✅
+Multiple Riders	✅
+Queue Storage	✅
+Direct Transfer	✅
+Waiting Consumers	✅
+Queue Size	✅
+Waiting Consumer Count	✅
+hasWaitingConsumer()	✅
+offer()	✅
+transfer()	✅
+take()	✅
+Lock-free queue	✅
+Real-world example	✅

@@ -1,0 +1,39 @@
+                    Iterable
+                        ▲
+                  Collection (Not related to Map)
+                        │
+──────────────────────────────────────────────────────────────
+
+                     Map<K,V> (Interface)
+                           ▲
+        ┌──────────────────┼──────────────────┐
+        │                  │                  │
+  SortedMap<K,V>      ConcurrentMap<K,V>   (Direct Map)
+        ▲                  ▲
+        │                  │
+ NavigableMap<K,V>         │
+        ▲                  │
+        ├──────────────┐    │
+        │              │    │
+   TreeMap        ConcurrentSkipListMap
+        │              │
+        │              └── implements ConcurrentNavigableMap
+        │
+──────────────────────────────────────────────────────────────
+
+                 AbstractMap<K,V> (Abstract Class) implements Map<K,V>
+                          ▲
+      ┌──────────┬────────┼───────────┬───────────┐
+      │          │        │           │           │
+  HashMap   TreeMap  WeakHashMap  IdentityHashMap EnumMap
+      ▲
+      │
+LinkedHashMap
+
+HashMap
+   ▲
+   └── also extended by LinkedHashMap
+
+Hashtable<K,V>
+   ▲
+Properties<K,V>   (Not part of your list)

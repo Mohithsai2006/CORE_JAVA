@@ -1,0 +1,124 @@
+========================================
+📘 JAVA CONCURRENT PACKAGE ROADMAP (java.util.concurrent)
+========================================
+
+1. Introduction
+   • Why java.util.concurrent?
+   • Problems with Traditional Synchronization
+   • Overview of Concurrent Utilities
+
+2. Executor Framework
+   • Executor
+   • ExecutorService
+   • ScheduledExecutorService
+   • Lifecycle
+   • shutdown()
+   • shutdownNow()
+   • awaitTermination()
+
+3. Thread Pools
+   • Fixed Thread Pool
+   • Cached Thread Pool
+   • Single Thread Executor
+   • Scheduled Thread Pool
+   • Work Stealing Pool
+   • Virtual Thread Executor
+
+4. Future & Callable
+   • Callable
+   • Future
+   • FutureTask
+   • Cancellation
+   • Timeouts
+
+5. CompletableFuture
+   • supplyAsync()
+   • runAsync()
+   • thenApply()
+   • thenAccept()
+   • thenCompose()
+   • thenCombine()
+   • exceptionally()
+   • handle()
+   • allOf()
+   • anyOf()
+
+6. Locks
+   • Lock Interface
+   • ReentrantLock
+   • ReadWriteLock
+   • ReentrantReadWriteLock
+   • StampedLock
+   • LockSupport
+
+7. Atomic Classes
+   • AtomicInteger
+   • AtomicLong
+   • AtomicBoolean
+   • AtomicReference
+   • AtomicIntegerArray
+   • LongAdder
+   • LongAccumulator
+   • CAS (Compare-And-Swap)
+
+8. Synchronizers
+   • CountDownLatch
+   • CyclicBarrier
+   • Phaser
+   • Semaphore
+   • Exchanger
+
+9. BlockingQueue
+   • BlockingQueue Interface
+   • ArrayBlockingQueue
+   • LinkedBlockingQueue
+   • PriorityBlockingQueue
+   • DelayQueue
+   • SynchronousQueue
+   • LinkedTransferQueue
+
+10. Concurrent Collections
+    • CopyOnWriteArrayList
+    • CopyOnWriteArraySet
+    • ConcurrentLinkedQueue
+    • ConcurrentLinkedDeque
+    • ConcurrentHashMap
+    • ConcurrentSkipListSet
+    • ConcurrentSkipListMap
+
+11. Fork/Join Framework
+    • ForkJoinPool
+    • RecursiveTask
+    • RecursiveAction
+    • Work Stealing Algorithm
+
+12. Parallel Streams
+    • Sequential vs Parallel Stream
+    • Common ForkJoinPool
+    • Performance Considerations
+
+13. Flow API (Reactive Streams)
+    • Publisher
+    • Subscriber
+    • Subscription
+    • Processor
+    • Backpressure
+
+14. Structured Concurrency (Java 25)
+    • StructuredTaskScope
+    • ShutdownOnFailure
+    • ShutdownOnSuccess
+    • Scoped Lifecycle
+
+15. Scoped Values (Java 25)
+    • ScopedValue
+    • Immutable Context
+    • Alternative to ThreadLocal
+
+16. Debugging & Monitoring
+    • Thread Dumps
+    • Deadlock Detection
+    • JConsole
+    • VisualVM
+    • Java Flight Recorder (JFR)
+    • Mission Control
